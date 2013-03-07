@@ -26,6 +26,7 @@ public class MessageDialog {
     private static String selectGroupError = "You have to select a group in order to proceed.";
     private static String validGroupError = "Select or type in a valid group name.";
     private static String validDatabaseError = "You have to type in a valid database schema name";
+    private static String fileError = "There was an error creating the file. Make sure you have sufficient permissions for the operation";
     //
     private static String deleteQuestion = "Delete?";
     private static String newGroupDialog = "Insert the name of the new Group: ";
@@ -90,6 +91,10 @@ public class MessageDialog {
     
     public static void validGroupError(GUI aFrame) {
         JOptionPane.showMessageDialog(aFrame, validGroupError, "Error!", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    public static void fileError(GUI aFrame) {
+        JOptionPane.showMessageDialog(aFrame, fileError, "Error!", JOptionPane.ERROR_MESSAGE);
     }
     
     public static void validDatabaseError(GUI aFrame) {
