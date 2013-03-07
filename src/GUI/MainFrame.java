@@ -11,6 +11,7 @@
 package GUI;
 
 import java.awt.event.*;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import sql.Connector;
+import utilities.Export;
 import utilities.FixedQueries;
 import utilities.IDCreator;
 import utilities.MessageDialog;
@@ -107,6 +109,7 @@ public class MainFrame extends GUI {
         delGroupBtn = new javax.swing.JButton();
         mainMenuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
+        exportItem = new javax.swing.JMenuItem();
         disconnectItem = new javax.swing.JMenuItem();
         exitItem = new javax.swing.JMenuItem();
         aboutMenu = new javax.swing.JMenu();
@@ -364,6 +367,14 @@ public class MainFrame extends GUI {
 
         fileMenu.setText("File");
 
+        exportItem.setText("Export to Google");
+        exportItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportItemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(exportItem);
+
         disconnectItem.setText("Disconnect");
         disconnectItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -560,6 +571,18 @@ public class MainFrame extends GUI {
     private void delGroupBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delGroupBtnActionPerformed
         delGroupButton();
     }//GEN-LAST:event_delGroupBtnActionPerformed
+
+    private void exportItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportItemActionPerformed
+        try {
+            Export ex = new Export(connector);
+        } catch (IOException ex1) {
+            MessageDialog.fileError(this);
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex1);
+        } catch (SQLException ex1) {
+            MessageDialog.conError(this);
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex1);
+        }
+    }//GEN-LAST:event_exportItemActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -574,6 +597,7 @@ public class MainFrame extends GUI {
     private javax.swing.JTextArea emailArea;
     private javax.swing.JTextField emailField;
     private javax.swing.JMenuItem exitItem;
+    private javax.swing.JMenuItem exportItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JComboBox groupCombo;
     private javax.swing.JLabel jLabel1;
