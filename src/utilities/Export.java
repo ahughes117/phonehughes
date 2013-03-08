@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package utilities;
 
 import java.io.*;
@@ -21,15 +18,8 @@ public class Export {
     public static final String GOOGLE_HEADER = ""
             + "First Name,"
             + "Last Name,"
-            //+ "E-mail 1 - Type,"
             + "E-mail Address,"
-            //+ "Email2-Type,"
-            //+ "Email2-Value,"
-            //+ "Phone 1 - Type,"
             + "Mobile Phone,"
-            //+ "Phone2-Type,"
-            //+ "Phone2-Value,"
-            //+ "Notes,"
             + "Group Membership";
 
     /**
@@ -46,15 +36,15 @@ public class Export {
         //sending the magic query that brings all the data we want
         //in the best format we can.
         ResultSet contactR = con.sendQuery(""
-                + "select c.Name, c.Surname, c.Comments, g.GroupName, "
+                + "SELECT c.Name, c.Surname, c.Comments, g.GroupName, "
                 + "e.EmailAddress, t.TelephoneNumber  "
-                + "from Contact c  "
-                + "inner join ContactGroup cg on c.ContactID = cg.ContactID  "
-                + "inner join cGroup g on g.cGroupID = cg.GroupID  "
-                + "inner join ContactEmail ce on c.ContactID = ce.ContactID  "
-                + "inner join Email e on ce.EmailID = e.EmailID  "
-                + "inner join ContactTelephone ct on c.ContactID = ct.ContactID  "
-                + "inner join Telephone t on ct.TelephoneID=t.TelephoneID;");
+                + "FROM Contact c  "
+                + "INNER JOIN ContactGroup cg ON c.ContactID = cg.ContactID  "
+                + "INNER JOIN cGroup g ON g.cGroupID = cg.GroupID  "
+                + "INNER JOIN ContactEmail ce ON c.ContactID = ce.ContactID  "
+                + "INNER JOIN Email e ON ce.EmailID = e.EmailID  "
+                + "INNER JOIN ContactTelephone ct ON c.ContactID = ct.ContactID  "
+                + "INNER JOIN Telephone t ON ct.TelephoneID=t.TelephoneID;");
 
         //filling each contact with ResultSet data and adding to arraylist
         GoogleContact gc;
@@ -66,8 +56,7 @@ public class Export {
             gc.setEmail1(contactR.getString("EmailAddress"));
             gc.setPhone1(contactR.getString("TelephoneNumber"));
             gc.setGroup(contactR.getString("GroupName"));
-            //gc.setNotes(contactR.getString("Comments"));
-
+            
             contacts.add(gc);
         }
         printContacts(contacts);
@@ -88,9 +77,8 @@ public class Export {
             tmp = aList.get(i);
 
             line = tmp.getFirstName() + "," + tmp.getLastName() + ","
-                    /*+ tmp.getEmailType() + ","*/ + tmp.getEmail1() + ","
-                    /*+ tmp.getPhoneType() + ","*/ + tmp.getPhone1() + ","
-                    /*+ tmp.getNotes() + ","*/ + tmp.getGroup() + "\n";
+                    + tmp.getEmail1() + "," + tmp.getPhone1() + ","
+                    + tmp.getGroup() + "\n";
 
             contents += line;
         }
